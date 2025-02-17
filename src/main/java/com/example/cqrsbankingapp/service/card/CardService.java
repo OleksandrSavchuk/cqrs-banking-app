@@ -13,4 +13,6 @@ public interface CardService
 
     boolean existsByNumberAndDate(String number, String date);
 
+    Card getByNumberAndDateAndCvv(String number, String date, String cvv);
+
 }

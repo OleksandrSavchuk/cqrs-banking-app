@@ -7,6 +7,7 @@ import com.example.cqrsbankingapp.web.dto.OnCreate;
 import com.example.cqrsbankingapp.web.dto.TransactionDto;
 import com.example.cqrsbankingapp.web.dto.mapper.TransactionMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +23,7 @@ public class TransactionController {
     private final TransactionMapper transactionMapper;
 
     @PostMapping
+    @PreAuthorize("@ssi.canAccessCard(#dto.from)")
     public void create(@RequestBody @Validated(OnCreate.class) TransactionDto dto) {
         if(cardService.existsByNumberAndDate(
                 dto.getTo().getNumber(),
@@ -34,6 +36,7 @@ public class TransactionController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("@ssi.canAccessTransaction(#id)")
     public TransactionDto getById(@PathVariable UUID id) {
         Transaction transaction = transactionService.getById(id);
         return transactionMapper.toDto(transaction);

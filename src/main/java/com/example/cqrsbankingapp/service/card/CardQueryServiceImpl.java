@@ -25,4 +25,10 @@ public class CardQueryServiceImpl implements CardQueryService {
         return repository.existsByNumberAndDate(number, date);
     }
 
+    @Override
+    public Card getByNumberAndDateAndCvv(String number, String date, String cvv) {
+        return repository.findByNumberAndDateAndCvv(number, date, cvv)
+                .orElseThrow(ResourceNotFoundException::new);
+    }
+
 }

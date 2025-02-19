@@ -5,9 +5,11 @@ import com.example.cqrsbankingapp.events.CardCreateEvent;
 import com.example.cqrsbankingapp.service.event.EventService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class CardCommandServiceImpl implements CardCommandService {
 
     private final EventService eventService;

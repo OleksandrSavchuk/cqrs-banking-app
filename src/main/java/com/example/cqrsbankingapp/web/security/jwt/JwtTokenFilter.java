@@ -31,8 +31,8 @@ public class JwtTokenFilter extends GenericFilterBean {
             String token = resolve((HttpServletRequest) servletRequest);
             if (
                     !token.isEmpty()
-                            && tokenService.getType(token).equals(TokenType.ACCESS.name())
-                            && tokenService.isExpired(token)
+                    && tokenService.getType(token).equals(TokenType.ACCESS.name())
+                    && tokenService.isExpired(token)
             ) {
                 Authentication authentication = getAuthentication(token);
                 if (authentication != null) {
@@ -41,7 +41,7 @@ public class JwtTokenFilter extends GenericFilterBean {
             }
         } catch (Exception ignored) {
         }
-        filterChain.doFilter(servletRequest, servletResponse);
+
     }
 
     private String resolve(HttpServletRequest request) {
